@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Window Coordinates</title>
+    <style>
+
+        div {
+            background-color: mediumpurple;
+            padding: 50px;
+            display: inline-block;
+        }
+
+        .special {
+            background-color:mediumvioletred;
+            padding: 50px;
+            display: inline-block;
+        }
+
+        .b1 {
+            position: fixed;
+            right: 270px;
+        }
+
+        .b2 {
+            position: fixed;
+            right: 140px;
+        }
+
+        .b3 {
+            position: fixed;
+            right: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <button class="b1">Scroll by 100px(y)</button>
+    <button class="b2">Scroll to 100px(y)</button>
+    <button class="b3">Scroll into special</button>
+    <div></div><br />
+    <div></div><br />
+    <div></div><br />
+    <div></div><br />
+    <div></div><br />
+    <div></div><br />
+    <div></div><br />
+    <div></div><br />
+    <div></div><br />
+    <div class="special"></div><br />
+    <div></div><br />
+    <div></div><br />
+    <div></div>
+
+    <script>
+        const special = document.querySelector('.special');
+        special.addEventListener('click', printMousePos, true);
+        function printMousePos(e) {
+            console.log(special.getBoundingClientRect());
+            console.log("clientX: " + e.clientX + ", clientY: " + e.clientY);
+            console.log(`page X: ${e.pageX}, page Y: ${e.pageY}`);
+        }
+
+        const b1 = document.querySelector('.b1');
+        const b2 = document.querySelector('.b2');
+        const b3 = document.querySelector('.b3');
+        b1.addEventListener('click', scroll_by, true);
+        // var current_scroll = 0;
+        // function scroll_by(e) {
+        //     current_scroll += 100;
+        //     window.scrollTo(0, current_scroll);
+        // }
+        function scroll_by(e) {
+            window.scrollBy({ top: 100, left: 0, behavior: 'smooth' });
+        }
+        b2.addEventListener('click', scroll_to, true);
+        function scroll_to(e) {
+            window.scrollTo(0, 100);
+        }
+        b3.addEventListener('click', scroll_into, true);
+        function scroll_into(e) {
+            special.scrollIntoView();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+        function solution(participant, completion) {
+            let map = new Map();
+            var answer = '';
+            
+            for (var i=0; i<participant.length; i++) {
+                if (map.has(participant[i])) {
+                    var current = map.get(participant[i]);
+                    current ++;
+                    map.set(participant[i], current);
+                } else {
+                    map.set(participant[i], 1);
+                }
+            }
+
+            for (var i=0; i<completion.length; i++) {
+                if (map.has(completion[i])) {
+                    var current = map.get(completion[i]);
+                    current --;
+                    map.set(completion[i], current);
+                }
+            }
+            console.log(map);
+
+            for (let [key, value] of map) {
+                if (value == 1) {
+                    answer = key;
+                }
+            }
+            return answer;
+        }
+
+        console.log(solution(["mislav", "stanko", "mislav", "ana"], ["stanko", "ana", "mislav"]));
+    </script>
+</body>
+</html>

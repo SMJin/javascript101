@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scroll</title>
+    <style>
+
+      body {
+        text-align: center;
+        background-color: black;
+      }
+
+      img {
+        display: block;
+        margin: 0 auto;
+      }      
+
+      button {
+        outline: none;
+        background-color: tomato;
+        color: white;
+        font-size: 32px;
+        margin: 16px 0;
+        cursor: pointer;
+      }
+
+      .goto_top {
+        position: fixed;
+        bottom: 0px;
+        right: 50px;
+      }
+
+    </style>
+  </head>
+  <body>
+
+    <button class="find_button"> find rabbit! </button>
+    <img src="img/carrot.png" alt="carrot">
+    <img src="img/carrot.png" alt="carrot">
+    <img src="img/carrot.png" alt="carrot">
+    <img src="img/carrot.png" alt="carrot">
+    <img src="img/carrot.png" alt="carrot">
+    <img src="img/carrot.png" alt="carrot">
+    <img src="img/carrot.png" alt="carrot">
+    <img src="img/carrot.png" alt="carrot">
+    <img src="img/carrot.png" alt="carrot">
+    <img src="img/carrot.png" alt="carrot">
+    <img src="img/carrot.png" alt="carrot">
+    <img src="img/carrot.png" alt="carrot">
+    <img src="img/carrot.png" alt="carrot">
+    <img class="rabbit" src="img/rabbit.png" alt="rabbit">
+    <img src="img/carrot.png" alt="carrot">
+    <img src="img/carrot.png" alt="carrot">
+    <img src="img/carrot.png" alt="carrot">
+    <button class="goto_top"> go to top </button>
+
+    <script>
+      const rabbit = document.querySelector('.rabbit');
+      const find = document.querySelector('.find_button');
+      const go = document.querySelector('.goto_top');
+      find.addEventListener('click', e => {
+        rabbit.scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+      go.addEventListener('click', e => {
+        window.scrollTo({
+          top: 0, 
+          left: 0,
+          behavior: "smooth"
+        });
+      });
+    </script>
+  </body>
+</html>
