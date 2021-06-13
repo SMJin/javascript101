@@ -8,33 +8,23 @@ html, body {
 
 .tag {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(20px, 20px);
 }
 
 .line {
     background-color: white;
     position: absolute;
-    will-change: top, left;
 }
 
 .horizontal {
     width: 100%;
     height: 1px;
-    top: 50%;
 }
 
 .vertical {
     width: 1px;
     height: 100%;
-    left: 50%;
 }
 
 .gun {
     position:absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    will-change: top, left;
 }
