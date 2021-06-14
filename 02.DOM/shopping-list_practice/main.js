@@ -32,6 +32,7 @@ function addList() {
 
     button.addEventListener('click', () => {
         items.removeChild(li);
+        items.removeChild(divisor);
     });
 
     item.appendChild(button);
