@@ -17,6 +17,6 @@ addEventListener('load', () => {
 
         gun.style.transform = `translate(${cx-gunHalfWidth}px, ${cy-gunHalfHeight}px)`;
         tag.style.transform = `translate(${cx + 20}px, ${cy + 20}px)`;
-        tag.innerHTML = `${cx}px, ${cy}px`
+        tag.innerHTML = `${cx}px, ${cy}px`;
     });
 });

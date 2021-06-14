@@ -1,0 +1,13 @@
+body {
+    text-align: center;
+}
+
+.table {
+    background-color: black;
+    width: 400px;
+    height: 500px;
+}
+
+header {
+    background-color:aquamarine;
+}
