@@ -1,4 +1,4 @@
-const addBtn = document.querySelector('footer__button');
+const addBtn = document.querySelector('.footer__button');
 const items = document.querySelector('.items');
 const input = document.querySelector('.footer__input');
 
@@ -47,5 +47,8 @@ function addList() {
     input.value = '';
     input.focus();  
 
-
 };
+
+addBtn.addEventListener('click', e => {
+    addList();
+});
