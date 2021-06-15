@@ -3,42 +3,39 @@ const items = document.querySelector('.items');
 const input = document.querySelector('.footer__input');
 
 function addList() {
-    const input__value = input.value;
-    if (input__value == '') {
+    const text = input.value;
+    if (text == '') {
         input.focus();
         return;
     }
 
-    const li = document.createElement("li");
-    const item = document.createElement("div");
-    const text = document.createElement("span");
-    const button = document.createElement("button");
-    const divisor = document.createElement("div");
-
-    li.setAttribute('class', 'item__row');
-    item.setAttribute('class', 'item');
-    text.setAttribute('class', 'item__name');
-    button.setAttribute('class', 'item__delete');
-    divisor.setAttribute('class', 'divisor');
-
-    text.innerText = input__value;
-    button.innerHTML = '<i class="fas fa-trash-alt"></i>';
-
-    li.appendChild(item);
-    item.appendChild(text);
-    item.appendChild(button);
-    items.appendChild(li);
-    items.appendChild(divisor);
-    
+    const item = createItem(text);
+    items.appendChild(item);
     item.scrollIntoView({ block: 'center'});
-    button.addEventListener('click', () => {
-        items.removeChild(li);
-        items.removeChild(divisor);
-    });
+    
+    // button.addEventListener('click', () => {
+    //     items.removeChild(li);
+    //     items.removeChild(divisor);
+    // });
 
     input.value = '';
     input.focus();  
 };
+
+function createItem(text) {
+    const itemRow = document.createElement('li');
+    itemRow.setAttribute('class', 'item__row');
+    itemRow.innerHTML = `
+        <div class="item">
+            <span class="item__name">${text}</span>
+            <button class="item__delete">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+            <div class="divisor"></div>
+        </div>
+    `;
+    return itemRow;
+}
 
 addBtn.addEventListener('click', e => {
     addList();
