@@ -1,67 +1,105 @@
 body {
     text-align: center;
+    font-family: Georgia, serif;
+}
+
+button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: transform 300ms ease-in;
+}
+
+button:hover {
+    transform: scale(1.2);
 }
 
 .game {
-    /* position: absolute;
-    bottom: 0;
-    height: 100%;
-    width: 100%; */
+    width: 800px;
+    height: 500px;
+    background-image: url(./img/background.png);
+    background-size: cover;
     display: flex;
     flex-direction: column;
-    /* flex: 50% 50%; */
+    margin: auto;
+    border-radius: 20px;
 }
 
 .game__header {
-    background-image: url(./img/background.png);
-    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    align-items: center;
 }
 
 .game__field {
-    background-color: #c7b910;
+    /* background-color: #c7b910; */
+    width: 100%;
+    height: 100%;
 }
 
 .play__btn {
-    border: black solid 5px;
     padding: 15px;
-    background-color: burlywood;
+    background-color: wheat;
+    border: black solid 4px;
     margin: 20px;
 }
 
 .play__btn > i {
-    font-size: 25px;
+    font-size: 24px;
 }
 
 .timer {
-    border: black solid 3.5px;
+    border: black solid 5px;
     border-radius: 20px;
     background-color: white;
     padding: 5px;
-    width: 50px;
-    margin: auto;
-    margin-bottom: 20px;
+    width: 100px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    font-size: 32px;
 }
 
 .game__score {
     color: white;
-    background-color: tomato;
-    border-radius: 100%;
-    padding: 10px 17px;
-    border: black solid 3.5px;
+    background-color: darksalmon;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    border: black solid 3px;
+    font-size: 40px;
+}
+
+.pop-up {
+    width: 400px;
+    height: 140px;
+    padding: 20px;
+    /* color code 000000 (=black) 90% opacity => 00000090  */
+    background-color: #00000090;
+    color: white;
+    margin: auto;
+    transform: translateY(-130%);
+    border-radius: 20px;
+    display: block;
+}
+
+.pop-up--hide {
+    display: none;
 }
 
 .replay__btn {
-    border: none;
     padding: 15px;
-    background-color: burlywood;
+    background-color: wheat;
     margin: 20px;
-    border-radius: 100%;
+    border-radius: 50%;
+    border: 2px solid black;
 }
 
 .replay__btn > i {
-    font-size: 25px;
+    font-size: 24px;
 }
 
 .pop-up__message {
     display: block;
+    font-size: 38px;
 }
