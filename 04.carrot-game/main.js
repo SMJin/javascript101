@@ -1,9 +1,14 @@
+'use strict';
+
+const IMG_SIZE = 730;
 const gameField = document.querySelector('.game__field');
+// getBoundingClientRect 를 사용하면 필드의 전체적인 사이즈와 포지션을 알 수 있다.
+const fieldRect = gameField.getBoundingClientRect();
 const playBtn = document.querySelector('.play__btn');
 
 function init() {
     let repeat = 0;
-    while (repeat < 10) {
+    while (repeat < 5) {
         createImg('./img/carrot.png', '50px', '50px', 'carrot');
         createImg('./img/bug.png', '50px', '50px', 'bug');
         repeat ++;
@@ -11,6 +16,12 @@ function init() {
 }
 
 function createImg(src, width, height, alt) {
+    const x1 = 0;
+    const y1 = 0;
+    const x2 = fieldRect.width - IMG_SIZE;
+    const y2 = fieldRect.right - 1321;
+    console.log("fieldRect : x="+x2+", y="+y2);
+    
     const img = document.createElement('img');
     img.setAttribute('src', src);
     img.setAttribute('alt', alt);
@@ -18,10 +29,17 @@ function createImg(src, width, height, alt) {
     img.setAttribute('height', height);
 
     img.style.position = 'absolute';
-    img.style.top = gameField.clientHeight * (Math.random() + 1) + 'px';
-    img.style.left = gameField.clientWidth * Math.random() + 'px';
+    const x = randomNumber(x1, x2);
+    const y = randomNumber(y1, y2);
+    console.log("left : " + x +", top : " + y);
+    img.style.left = `${x}px`;
+    img.style.top = `${y}px`;
 
     gameField.appendChild(img);
+}
+
+function randomNumber(min, max) {
+    return Math.random() * (max - min) + min;
 }
 
 playBtn.addEventListener('click', e => {
