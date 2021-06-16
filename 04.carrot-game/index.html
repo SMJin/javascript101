@@ -10,20 +10,23 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
 </head>
 <body>
-    <button class="play__btn">
-        <i class="fas fa-play-circle"></i>
-    </button>
-    <div class="timer">
-        00:<span class="timer__seconds">00</span>
-    </div>
-    <div class="carrot__number__box">
-        <span class="carrot__number">10</span>
-    </div>
-    <div class="replay__box">
+    <section class="game">
+        <header class="game__header">
+            <button class="play__btn">
+                <i class="fas fa-play-circle"></i>
+            </button>
+            <div class="timer">
+                0:<span class="timer__seconds">0</span>
+            </div>
+            <span class="game__score">9</span>
+        </header>
+        <section class="game__field"></section>
+    </section>
+    <section class="pop-up">
         <button class="replay__btn">
             <i class="fas fa-reply"></i>
         </button>
-        <span class="replay__tag">repaly ?</span>
-    </div>
+        <span class="pop-up__message">replay ?</span>
+    </section>
 </body>
 </html>
