@@ -37,15 +37,21 @@ button:hover {
     position: relative;
 }
 
-.play__btn {
+.play__btn, .stop__btn {
+    display: block;
     padding: 15px;
     background-color: wheat;
     border: black solid 4px;
     margin: 20px;
+    font-size: 24px;
 }
 
-.play__btn > i {
-    font-size: 24px;
+.play__btn--hide {
+    display: none;
+}
+
+.stop__btn--hide {
+    display: none;
 }
 
 .timer {
@@ -57,6 +63,14 @@ button:hover {
     margin-top: 8px;
     margin-bottom: 8px;
     font-size: 32px;
+}
+
+.timer--hide {
+    display: none;
+}
+
+.game__score--hide {
+    display: none;
 }
 
 .game__score {

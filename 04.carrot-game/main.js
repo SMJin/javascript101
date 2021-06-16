@@ -1,14 +1,18 @@
 'use strict';
 
 const IMG_SIZE = 730;
+const ITEM_COUNT = 5;
 const gameField = document.querySelector('.game__field');
 // getBoundingClientRect 를 사용하면 필드의 전체적인 사이즈와 포지션을 알 수 있다.
 const fieldRect = gameField.getBoundingClientRect();
 const playBtn = document.querySelector('.play__btn');
+const stopBtn = document.querySelector('.stop__btn');
+const timer = document.querySelector('.timer');
+const score = document.querySelector('.game__score');
 
 function init() {
     let repeat = 0;
-    while (repeat < 5) {
+    while (repeat < ITEM_COUNT) {
         createImg('./img/carrot.png', '50px', '50px', 'carrot');
         createImg('./img/bug.png', '50px', '50px', 'bug');
         repeat ++;
@@ -45,4 +49,8 @@ function randomNumber(min, max) {
 playBtn.addEventListener('click', e => {
     console.log('play button 이 눌렸습니다 !!');
     init();
+    timer.classList.remove('timer--hide');
+    score.classList.remove('game__score--hide');
+    playBtn.classList.add('play__btn--hide');
+    stopBtn.classList.remove('stop__btn--hide');
 });
