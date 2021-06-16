@@ -1,8 +1,67 @@
 body {
-    background-color: #c7b910;
-    background-image: url(./img/background.png);
-    background-size: cover;
-    background-repeat: no-repeat;
     text-align: center;
 }
 
+.game {
+    /* position: absolute;
+    bottom: 0;
+    height: 100%;
+    width: 100%; */
+    display: flex;
+    flex-direction: column;
+    /* flex: 50% 50%; */
+}
+
+.game__header {
+    background-image: url(./img/background.png);
+    background-size: cover;
+}
+
+.game__field {
+    background-color: #c7b910;
+}
+
+.play__btn {
+    border: black solid 5px;
+    padding: 15px;
+    background-color: burlywood;
+    margin: 20px;
+}
+
+.play__btn > i {
+    font-size: 25px;
+}
+
+.timer {
+    border: black solid 3.5px;
+    border-radius: 20px;
+    background-color: white;
+    padding: 5px;
+    width: 50px;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.game__score {
+    color: white;
+    background-color: tomato;
+    border-radius: 100%;
+    padding: 10px 17px;
+    border: black solid 3.5px;
+}
+
+.replay__btn {
+    border: none;
+    padding: 15px;
+    background-color: burlywood;
+    margin: 20px;
+    border-radius: 100%;
+}
+
+.replay__btn > i {
+    font-size: 25px;
+}
+
+.pop-up__message {
+    display: block;
+}
