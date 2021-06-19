@@ -2,6 +2,7 @@
 
 const IMG_SIZE = 50;
 const ITEM_COUNT = 5;
+const GAME_DURATION_SEC = 5;
 
 const gameField = document.querySelector('.game__field');
 // getBoundingClientRect 를 사용하면 필드의 전체적인 사이즈와 포지션을 알 수 있다.
@@ -63,8 +64,6 @@ function init() {
         createImg('./img/bug.png', `${IMG_SIZE}px`, `${IMG_SIZE}px`, 'bug');
         repeat ++;
     }
-
-    startGameTimer();
 }
 
 function createImg(src, width, height, alt) {
@@ -94,5 +93,21 @@ function randomNumber(min, max) {
 }
 
 function startGameTimer() {
+    let remainingTimeSec = GAME_DURATION_SEC;
+    updateGameTimer(remainingTimeSec);
+    // 1초마다 갱신하다가 0초가 되면 return 된다.
+    timer = setInterval(() => {
+        if (remainingTimeSec <= 0) {
+            clearInterval(timer);
+            showPlayBtn();
+            return;
+        }
+        updateGameTimer(-- remainingTimeSec);
+    }, 1000);
+}
 
+function updateGameTimer(time){
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    gameTimer.innerText = `${minutes}:${seconds}`;
 }
