@@ -29,14 +29,13 @@ playBtn.addEventListener('click', e => {
         showStopBtn();
         startGameTimer();
     } else {
-        if (document.getElementsByClassName('pop-up--hide').length) {
-            console.log('stop button 이 눌렸습니다 !!');
-            clearInterval(timer);
-            hiddenPlayBtn();
-            showReplayPopUp();
-        }
+        console.log('stop button 이 눌렸습니다 !!');
+        clearInterval(timer);
+        hiddenPlayBtn();
+        showReplayPopUp();
     }
     started = !started;
+    console.log('모드 전환!');
 });
 
 function showTimerAndScore() {
@@ -55,6 +54,7 @@ function showStopBtn() {
 }
 
 replayBtn.addEventListener('click', e => {
+    console.log('replay button 이 눌렸습니다 !!');
     init();
     showTimerAndScore();
     startGameTimer();
@@ -62,6 +62,7 @@ replayBtn.addEventListener('click', e => {
     playBtn.classList.remove('play__btn--hide');
     showStopBtn();
     started = !started;
+    console.log('모드 전환!');
 });
 
 function init() {
@@ -91,7 +92,7 @@ function createImg(src, width, height, alt) {
     img.style.position = 'absolute';
     const x = randomNumber(x1, x2);
     const y = randomNumber(y1, y2);
-    console.log("left : " + x +", top : " + y);
+//    console.log("left : " + x +", top : " + y);
     img.style.left = `${x}px`;
     img.style.top = `${y}px`;
 
@@ -110,6 +111,8 @@ function startGameTimer() {
         if (remainingTimeSec <= 0) {
             clearInterval(timer);
             showReplayPopUp();
+            started = !started;
+            console.log('모드 전환!');
             return;
         }
         updateGameTimer(-- remainingTimeSec);
@@ -125,5 +128,4 @@ function updateGameTimer(time){
 function showReplayPopUp() {
     replayPopUp.classList.remove('pop-up--hide');
     hiddenPlayBtn();
-    clearInterval(timer);
 }
