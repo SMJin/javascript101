@@ -1,6 +1,6 @@
 'use strict';
 
-const IMG_SIZE = 730;
+const IMG_SIZE = 50;
 const ITEM_COUNT = 5;
 
 const gameField = document.querySelector('.game__field');
@@ -21,8 +21,6 @@ let timer = undefined;
 
 playBtn.addEventListener('click', e => {
     console.log('play button 이 눌렸습니다 !!');
-    console.log("fieldRect : width="+fieldRect.width+", height="+fieldRect.height);
-    
     init();
     gameTimer.classList.remove('timer--hide');
     gameScore.classList.remove('game__score--hide');
@@ -32,8 +30,6 @@ playBtn.addEventListener('click', e => {
 
 stopBtn.addEventListener('click', e => {
     console.log('stop button 이 눌렸습니다 !!');
-    console.log("fieldRect : width="+fieldRect.width+", height="+fieldRect.height);
-    
     gameTimer.classList.add('timer--hide');
     gameScore.classList.add('game__score--hide');
     playBtn.classList.remove('play__btn--hide');
@@ -46,8 +42,8 @@ function init() {
     
     let repeat = 0;
     while (repeat < ITEM_COUNT) {
-        createImg('./img/carrot.png', '50px', '50px', 'carrot');
-        createImg('./img/bug.png', '50px', '50px', 'bug');
+        createImg('./img/carrot.png', `${IMG_SIZE}px`, `${IMG_SIZE}px`, 'carrot');
+        createImg('./img/bug.png', `${IMG_SIZE}px`, `${IMG_SIZE}px`, 'bug');
         repeat ++;
     }
 
@@ -57,8 +53,8 @@ function init() {
 function createImg(src, width, height, alt) {
     const x1 = 0;
     const y1 = 0;
-    const x2 = fieldRect.width;
-    const y2 = fieldRect.height;
+    const x2 = fieldRect.width - IMG_SIZE;
+    const y2 = fieldRect.height - IMG_SIZE;
     
     const img = document.createElement('img');
     img.setAttribute('src', src);
@@ -69,7 +65,7 @@ function createImg(src, width, height, alt) {
     img.style.position = 'absolute';
     const x = randomNumber(x1, x2);
     const y = randomNumber(y1, y2);
-//    console.log("left : " + x +", top : " + y);
+    console.log("left : " + x +", top : " + y);
     img.style.left = `${x}px`;
     img.style.top = `${y}px`;
 
