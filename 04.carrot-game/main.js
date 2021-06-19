@@ -12,26 +12,31 @@ window.onload = function(){
     console.log("fieldRect : width="+fieldRect.width+", height="+fieldRect.height);
 }
 const playBtn = document.querySelector('.play__btn');
-const stopBtn = document.querySelector('.stop__btn');
 const gameTimer = document.querySelector('.timer');
 const gameScore = document.querySelector('.game__score');
+const replayPopUp = document.querySelector('.pop-up');
+const replayBtn = document.querySelector('.replay__btn');
 
-
+let started = false;
 let score = 0;
 let timer = undefined;
 
 playBtn.addEventListener('click', e => {
-    console.log('play button 이 눌렸습니다 !!');
-    init();
-    showTimerAndScore();
-    showStopBtn();
-    startGameTimer();
-});
-
-stopBtn.addEventListener('click', e => {
-    console.log('stop button 이 눌렸습니다 !!');
-    hiddenTimerAndScore();
-    showPlayBtn();
+    if (!started) {
+        console.log('play button 이 눌렸습니다 !!');
+        init();
+        showTimerAndScore();
+        showStopBtn();
+        startGameTimer();
+    } else {
+        if (document.getElementsByClassName('pop-up--hide').length) {
+            console.log('stop button 이 눌렸습니다 !!');
+            clearInterval(timer);
+            hiddenPlayBtn();
+            showReplayPopUp();
+        }
+    }
+    started = !started;
 });
 
 function showTimerAndScore() {
@@ -39,20 +44,25 @@ function showTimerAndScore() {
     gameScore.style.visibility = 'visible';
 }
 
-function hiddenTimerAndScore() {
-    gameTimer.style.visibility = 'hidden';
-    gameScore.style.visibility = 'hidden';
+function hiddenPlayBtn(){
+    playBtn.classList.add('play__btn--hide');
 }
 
 function showStopBtn() {
-    playBtn.classList.add('play__btn--hide');
-    stopBtn.classList.remove('stop__btn--hide');
+    const icon = playBtn.querySelector('.fas');
+    icon.classList.add('fa-stop');
+    icon.classList.remove('fa-play');
 }
 
-function showPlayBtn() {
+replayBtn.addEventListener('click', e => {
+    init();
+    showTimerAndScore();
+    startGameTimer();
+    replayPopUp.classList.add('pop-up--hide');
     playBtn.classList.remove('play__btn--hide');
-    stopBtn.classList.add('stop__btn--hide');
-}
+    showStopBtn();
+    started = !started;
+});
 
 function init() {
     gameScore.innerHTML = ITEM_COUNT;
@@ -99,7 +109,7 @@ function startGameTimer() {
     timer = setInterval(() => {
         if (remainingTimeSec <= 0) {
             clearInterval(timer);
-            showPlayBtn();
+            showReplayPopUp();
             return;
         }
         updateGameTimer(-- remainingTimeSec);
@@ -110,4 +120,10 @@ function updateGameTimer(time){
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
     gameTimer.innerText = `${minutes}:${seconds}`;
+}
+
+function showReplayPopUp() {
+    replayPopUp.classList.remove('pop-up--hide');
+    hiddenPlayBtn();
+    clearInterval(timer);
 }
