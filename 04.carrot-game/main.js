@@ -22,23 +22,40 @@ let timer = undefined;
 playBtn.addEventListener('click', e => {
     console.log('play button 이 눌렸습니다 !!');
     init();
-    gameTimer.classList.remove('timer--hide');
-    gameScore.classList.remove('game__score--hide');
-    playBtn.classList.add('play__btn--hide');
-    stopBtn.classList.remove('stop__btn--hide');
+    showTimerAndScore();
+    showStopBtn();
+    startGameTimer();
 });
 
 stopBtn.addEventListener('click', e => {
     console.log('stop button 이 눌렸습니다 !!');
-    gameTimer.classList.add('timer--hide');
-    gameScore.classList.add('game__score--hide');
+    hiddenTimerAndScore();
+    showPlayBtn();
+});
+
+function showTimerAndScore() {
+    gameTimer.style.visibility = 'visible';
+    gameScore.style.visibility = 'visible';
+}
+
+function hiddenTimerAndScore() {
+    gameTimer.style.visibility = 'hidden';
+    gameScore.style.visibility = 'hidden';
+}
+
+function showStopBtn() {
+    playBtn.classList.add('play__btn--hide');
+    stopBtn.classList.remove('stop__btn--hide');
+}
+
+function showPlayBtn() {
     playBtn.classList.remove('play__btn--hide');
     stopBtn.classList.add('stop__btn--hide');
-    gameField.innerHTML = '';
-});
+}
 
 function init() {
     gameScore.innerHTML = ITEM_COUNT;
+    gameField.innerHTML = '';
     
     let repeat = 0;
     while (repeat < ITEM_COUNT) {

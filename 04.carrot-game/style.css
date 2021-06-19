@@ -59,10 +59,7 @@ button:hover {
     margin-top: 8px;
     margin-bottom: 8px;
     font-size: 32px;
-}
-
-.timer--hide {
-    display: none;
+    visibility: hidden;
 }
 
 .game__score {
@@ -73,10 +70,7 @@ button:hover {
     height: 50px;
     border: black solid 3px;
     font-size: 40px;
-}
-
-.game__score--hide {
-    display: none;
+    visibility: hidden;
 }
 
 .game__field {
