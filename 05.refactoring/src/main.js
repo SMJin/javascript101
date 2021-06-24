@@ -27,7 +27,7 @@ let score = 0;
 let timer = undefined;
 
 const gameFinishBanner = new PopUp();
-gameFinishBanner.setClickListener('click', () => {
+gameFinishBanner.setClickListener(() => {
     console.log('replay button 이 눌렸습니다 !!');
     playSound(bgSound);
     init();
