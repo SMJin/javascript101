@@ -18,6 +18,12 @@ const replayPopUp = document.querySelector('.pop-up');
 const replayBtn = document.querySelector('.replay__btn');
 const popupMessage = document.querySelector('.pop-up__message');
 
+const carrotSound = new Audio('./sound/carrot_pull.mp3');
+const bugSound = new Audio('./sound/bug_pull.mp3');
+const alertSound = new Audio('./sound/alert.wav');
+const bgSound = new Audio('./sound/bg.mp3');
+const winSound = new Audio('./sound/game_win.mp3');
+
 let started = false;
 let score = 0;
 let timer = undefined;
@@ -29,6 +35,7 @@ playBtn.addEventListener('click', e => {
         showTimerAndScore();
         showStopBtn();
         startGameTimer();
+        playSound(bgSound);
     } else {
         console.log('stop button 이 눌렸습니다 !!');
         clearInterval(timer);
@@ -56,6 +63,7 @@ function showStopBtn() {
 
 replayBtn.addEventListener('click', e => {
     console.log('replay button 이 눌렸습니다 !!');
+    playSound(bgSound);
     init();
     showTimerAndScore();
     startGameTimer();
@@ -110,8 +118,12 @@ function createImg(src, width, height, alt) {
             gameField.removeChild(img);
             score ++;
             gameScore.innerHTML = ITEM_COUNT - score;
+
+            playSound(carrotSound);
+
             if (ITEM_COUNT - score == 0) {
                 popupMessage.innerHTML = "Successs !!";
+                playSound(winSound);
                 clearInterval(timer);
                 showReplayPopUp();
                 started = !started;
@@ -124,9 +136,21 @@ function createImg(src, width, height, alt) {
             showReplayPopUp();
             started = !started;
             console.log('모드 전환!');
+
+            playSound(bugSound);
+
             return;
         }
     });
+}
+
+function playSound(sound) {
+    sound.currentTime = 0;
+    sound.play();
+}
+
+function stopSound(sound) {
+    sound.pause();
 }
 
 function randomNumber(min, max) {
@@ -143,6 +167,7 @@ function startGameTimer() {
             showReplayPopUp();
             started = !started;
             console.log('모드 전환!');
+            playSound(alertSound);
             return;
         }
         updateGameTimer(-- remainingTimeSec);
@@ -158,4 +183,5 @@ function updateGameTimer(time){
 function showReplayPopUp() {
     replayPopUp.classList.remove('pop-up--hide');
     hiddenPlayBtn();
+    stopSound(bgSound);
 }
