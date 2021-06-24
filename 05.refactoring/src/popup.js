@@ -1,5 +1,4 @@
 'use strict';
-Origin: Access-Control-Allow;
 
 export default class PopUp {
     constructor() {

@@ -1,5 +1,4 @@
 'use strict';
-Origin: Access-Control-Allow;
 import PopUp from "./popup.js";
 
 const IMG_SIZE = 50;
