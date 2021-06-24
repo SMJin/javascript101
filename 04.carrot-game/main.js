@@ -16,6 +16,7 @@ const gameTimer = document.querySelector('.timer');
 const gameScore = document.querySelector('.game__score');
 const replayPopUp = document.querySelector('.pop-up');
 const replayBtn = document.querySelector('.replay__btn');
+const popupMessage = document.querySelector('.pop-up__message');
 
 let started = false;
 let score = 0;
@@ -63,6 +64,10 @@ replayBtn.addEventListener('click', e => {
     showStopBtn();
     started = !started;
     console.log('모드 전환!');
+
+    popupMessage.innerHTML = "fail... replay ?";
+    gameScore.innerHTML = ITEM_COUNT;
+    score = 0;
 });
 
 function init() {
@@ -88,6 +93,7 @@ function createImg(src, width, height, alt) {
     img.setAttribute('alt', alt);
     img.setAttribute('width', width);
     img.setAttribute('height', height);
+    img.setAttribute('class', alt);
 
     img.style.position = 'absolute';
     const x = randomNumber(x1, x2);
@@ -97,6 +103,30 @@ function createImg(src, width, height, alt) {
     img.style.top = `${y}px`;
 
     gameField.appendChild(img);
+
+    img.addEventListener('click', e => {
+        if (alt == 'carrot') {
+            console.log("당근 클릭!!");
+            gameField.removeChild(img);
+            score ++;
+            gameScore.innerHTML = ITEM_COUNT - score;
+            if (ITEM_COUNT - score == 0) {
+                popupMessage.innerHTML = "Successs !!";
+                clearInterval(timer);
+                showReplayPopUp();
+                started = !started;
+                console.log('모드 전환!');
+                return;
+            }
+        } else {
+            console.log("벌레 클릭!!");
+            clearInterval(timer);
+            showReplayPopUp();
+            started = !started;
+            console.log('모드 전환!');
+            return;
+        }
+    });
 }
 
 function randomNumber(min, max) {
