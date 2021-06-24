@@ -3,6 +3,7 @@
 const IMG_SIZE = 50;
 const ITEM_COUNT = 5;
 const GAME_DURATION_SEC = 5;
+console.log(location.origin);
 
 const gameField = document.querySelector('.game__field');
 // getBoundingClientRect 를 사용하면 필드의 전체적인 사이즈와 포지션을 알 수 있다.

@@ -1,4 +1,6 @@
 'use strict';
+Origin: Access-Control-Allow;
+import PopUp from "./popup.js";
 
 const IMG_SIZE = 50;
 const ITEM_COUNT = 5;
@@ -14,9 +16,6 @@ window.onload = function(){
 const playBtn = document.querySelector('.play__btn');
 const gameTimer = document.querySelector('.timer');
 const gameScore = document.querySelector('.game__score');
-const replayPopUp = document.querySelector('.pop-up');
-const replayBtn = document.querySelector('.replay__btn');
-const popupMessage = document.querySelector('.pop-up__message');
 
 const carrotSound = new Audio('./sound/carrot_pull.mp3');
 const bugSound = new Audio('./sound/bug_pull.mp3');
@@ -27,6 +26,22 @@ const winSound = new Audio('./sound/game_win.mp3');
 let started = false;
 let score = 0;
 let timer = undefined;
+
+const gameFinishBanner = new PopUp();
+gameFinishBanner.setClickListener('click', () => {
+    console.log('replay button 이 눌렸습니다 !!');
+    playSound(bgSound);
+    init();
+    showTimerAndScore();
+    startGameTimer();
+    gameFinishBanner.hide();
+    playBtn.classList.remove('play__btn--hide');
+    showStopBtn();
+    started = !started;
+    console.log('모드 전환!');
+    gameScore.innerHTML = ITEM_COUNT;
+    score = 0;
+});
 
 playBtn.addEventListener('click', e => {
     if (!started) {
@@ -40,7 +55,7 @@ playBtn.addEventListener('click', e => {
         console.log('stop button 이 눌렸습니다 !!');
         clearInterval(timer);
         hiddenPlayBtn();
-        showReplayPopUp();
+        showReplayPopUp("fail...replay ?");
     }
     started = !started;
     console.log('모드 전환!');
@@ -60,23 +75,6 @@ function showStopBtn() {
     icon.classList.add('fa-stop');
     icon.classList.remove('fa-play');
 }
-
-replayBtn.addEventListener('click', e => {
-    console.log('replay button 이 눌렸습니다 !!');
-    playSound(bgSound);
-    init();
-    showTimerAndScore();
-    startGameTimer();
-    replayPopUp.classList.add('pop-up--hide');
-    playBtn.classList.remove('play__btn--hide');
-    showStopBtn();
-    started = !started;
-    console.log('모드 전환!');
-
-    popupMessage.innerHTML = "fail... replay ?";
-    gameScore.innerHTML = ITEM_COUNT;
-    score = 0;
-});
 
 function init() {
     gameScore.innerHTML = ITEM_COUNT;
@@ -122,10 +120,9 @@ function createImg(src, width, height, alt) {
             playSound(carrotSound);
 
             if (ITEM_COUNT - score == 0) {
-                popupMessage.innerHTML = "Successs !!";
                 playSound(winSound);
                 clearInterval(timer);
-                showReplayPopUp();
+                showReplayPopUp("Successs !!");
                 started = !started;
                 console.log('모드 전환!');
                 return;
@@ -133,7 +130,7 @@ function createImg(src, width, height, alt) {
         } else {
             console.log("벌레 클릭!!");
             clearInterval(timer);
-            showReplayPopUp();
+            showReplayPopUp("fail...replay ?");
             started = !started;
             console.log('모드 전환!');
 
@@ -164,7 +161,7 @@ function startGameTimer() {
     timer = setInterval(() => {
         if (remainingTimeSec <= 0) {
             clearInterval(timer);
-            showReplayPopUp();
+            showReplayPopUp("fail...replay ?");
             started = !started;
             console.log('모드 전환!');
             playSound(alertSound);
@@ -180,8 +177,8 @@ function updateGameTimer(time){
     gameTimer.innerText = `${minutes}:${seconds}`;
 }
 
-function showReplayPopUp() {
-    replayPopUp.classList.remove('pop-up--hide');
+function showReplayPopUp(text) {
+    gameFinishBanner.showWithText(text);
     hiddenPlayBtn();
     stopSound(bgSound);
 }
