@@ -11,7 +11,7 @@ const game = new GameBuilder()
 
 gameFinishBanner.setClickListener(() => {
     console.log('replay button is clicked !!');
-    game.init();
+    game.start();
 });
 
 game.setGameStopListener((state) => {

@@ -27,7 +27,7 @@ export class GameBuilder {
     build() {
         console.log(this);
         return new Game(
-            this.duration,
+            this.gameDuration,
             this.carrotCount,
             this.bugCount
         );
@@ -51,7 +51,7 @@ class Game {
             if (this.started) {
                 this.stop();
             } else {
-                this.start();
+                this.init();
             }
         });
 
@@ -69,10 +69,10 @@ class Game {
         this.gameScore.innerHTML = this.carrotCount;
         this.gameField.init();
         this.showTimerAndScore();
-        this.showStopBtn();
         this.startGameTimer();
-        sound.playBackground();
         this.hiddenPlayBtn();
+        this.showStopBtn();
+        sound.playBackground();
         this.changeGameMode();
     }
 
@@ -164,5 +164,6 @@ class Game {
         const minutes = Math.floor(time / 60);
         const seconds = time % 60;
         this.gameTimer.innerText = `${minutes}:${seconds}`;
+        console.log(this.gameTimer.innerText);
     }
 }
