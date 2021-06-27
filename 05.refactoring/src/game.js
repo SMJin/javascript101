@@ -1,6 +1,6 @@
 'use strict';
 import * as sound from "./sound.js";
-import Field from "./field.js";
+import { Field, ImgType } from "./field.js";
 
 export const State = Object.freeze({
     win: 'win',
@@ -98,7 +98,7 @@ class Game {
         if (!this.started) {
             return;
         } else {
-            if (item == 'carrot') {
+            if (item == ImgType.carrot) {
                 console.log("You clicked CARROT !!");
                 this.score ++;
                 if (this.updateScoreBoard() == 0) {
@@ -107,7 +107,7 @@ class Game {
                     this.onGameStop(State.win);
                     return;
                 }
-            } else if (item == 'bug') {
+            } else if (item == ImgType.bug) {
                 console.log("You clicked BUG !!");
                 this.finish();
                 this.onGameStop(State.fail);
