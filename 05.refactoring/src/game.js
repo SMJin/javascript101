@@ -2,7 +2,13 @@
 import * as sound from "./sound.js";
 import Field from "./field.js";
 
-export default class GameBuilder {
+export const State = Object.freeze({
+    win: 'win',
+    fail: 'fail',
+    cancel: 'cancel',
+});
+
+export class GameBuilder {
     withGameDuration(duration) {
         this.gameDuration = duration;
         return this;
@@ -70,7 +76,7 @@ class Game {
     stop() {
         console.log('stop button is clicked !!');
         this.finish();
-        this.onGameStop('fail');
+        this.onGameStop(State.cancel);
         sound.playalert();
     }
 
@@ -95,13 +101,13 @@ class Game {
                 if (this.updateScoreBoard() == 0) {
                     sound.playWin();
                     this.finish();
-                    this.onGameStop('win');
+                    this.onGameStop(State.win);
                     return;
                 }
             } else if (item == 'bug') {
                 console.log("You clicked BUG !!");
                 this.finish();
-                this.onGameStop('fail');
+                this.onGameStop(State.fail);
             }
         }
     };
@@ -118,7 +124,7 @@ class Game {
         this.timer = setInterval(() => {
             if (remainingTimeSec <= 0) {
                 this.finish();
-                this.onGameStop('fail');
+                this.onGameStop(State.fail);
                 sound.playalert();
                 return;
             }

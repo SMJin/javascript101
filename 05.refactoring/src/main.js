@@ -1,6 +1,6 @@
 'use strict';
 import PopUp from "./popup.js";
-import GameBuilder from "./game.js";
+import { GameBuilder, State } from "./game.js";
 
 const gameFinishBanner = new PopUp();
 gameFinishBanner.setClickListener(() => {
@@ -17,11 +17,14 @@ const game = new GameBuilder()
 game.setGameStopListener((state) => {
     let message;
     switch (state) {
-        case 'win':
+        case State.win:
             message = 'SUCCESS !!';
             break;
-        case 'fail':
+        case State.fail:
             message = 'fail ... replay ?';
+            break;
+        case State.cancel:
+            message = 'replay ?'
             break;
         default:
             throw new Error('not valid state');
