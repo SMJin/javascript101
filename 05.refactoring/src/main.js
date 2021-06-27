@@ -1,10 +1,6 @@
 'use strict';
 import PopUp from "./popup.js";
-import Game from "./game.js";
-
-const GAME_DURATION_SEC = 5;
-const CARROT_COUNT = 5;
-const BUG_COUNT = 5;
+import GameBuilder from "./game.js";
 
 const gameFinishBanner = new PopUp();
 gameFinishBanner.setClickListener(() => {
@@ -12,7 +8,12 @@ gameFinishBanner.setClickListener(() => {
     game.init();
 });
 
-const game = new Game(GAME_DURATION_SEC, CARROT_COUNT, BUG_COUNT);
+const game = new GameBuilder()
+    .withGameDuration(5)
+    .withCarrotCount(5)
+    .withBugCount(5)
+    .build();
+
 game.setGameStopListener((state) => {
     let message;
     switch (state) {
