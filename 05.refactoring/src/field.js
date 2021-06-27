@@ -1,7 +1,6 @@
 'use strict';
+import * as sound from "./sound.js";
 
-const carrotSound = new Audio('./sound/carrot_pull.mp3');
-const bugSound = new Audio('./sound/bug_pull.mp3');
 const IMG_SIZE = 50;
 
 export default class Field {
@@ -38,12 +37,12 @@ export default class Field {
         const target = event.target;
         if (target.matches('.carrot')) {
             target.remove();
-            playSound(carrotSound);
+            sound.playCarrot();
             this.onItemClicked('carrot');
         } 
         else if (target.matches('.bug')) {
             target.remove();
-            playSound(bugSound);
+            sound.playBug();
             this.onItemClicked('bug');
         }
     }
@@ -75,10 +74,4 @@ export default class Field {
 // static function that exists outside the class
 function randomNumber(min, max) {
     return Math.random() * (max-min) + min;
-}
-
-// static function that exists outside the class
-function playSound(sound) {
-    sound.currentTime = 0;
-    sound.play();
 }

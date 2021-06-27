@@ -1,6 +1,7 @@
 'use strict';
 import Field from "./field.js";
 import PopUp from "./popup.js";
+import * as sound from "./sound.js";
 
 const GAME_DURATION_SEC = 5;
 const CARROT_COUNT = 5;
@@ -10,10 +11,6 @@ const playBtn = document.querySelector('.play__btn');
 const gameTimer = document.querySelector('.timer');
 const gameScore = document.querySelector('.game__score');
 
-const alertSound = new Audio('./sound/alert.wav');
-const bgSound = new Audio('./sound/bg.mp3');
-const winSound = new Audio('./sound/game_win.mp3');
-
 let started = false;
 let score = 0;
 let timer = undefined;
@@ -21,7 +18,7 @@ let timer = undefined;
 const gameFinishBanner = new PopUp();
 gameFinishBanner.setClickListener(() => {
     console.log('replay button 이 눌렸습니다 !!');
-    playSound(bgSound);
+    sound.playBackground();
     init();
     showTimerAndScore();
     startGameTimer();
@@ -45,7 +42,7 @@ function onItemClick(item) {
         score ++;
         gameScore.innerHTML = CARROT_COUNT - score;
         if (CARROT_COUNT - score == 0) {
-            playSound(winSound);
+            sound.playWin();
             clearInterval(timer);
             showReplayPopUp("SUCCESS !!");
             started = !started;
@@ -75,7 +72,7 @@ playBtn.addEventListener('click', e => {
         showTimerAndScore();
         showStopBtn();
         startGameTimer();
-        playSound(bgSound);
+        sound.playBackground();
     } else {
         console.log('stop button 이 눌렸습니다 !!');
         clearInterval(timer);
@@ -101,15 +98,6 @@ function showStopBtn() {
     icon.classList.remove('fa-play');
 }
 
-function playSound(sound) {
-    sound.currentTime = 0;
-    sound.play();
-}
-
-function stopSound(sound) {
-    sound.pause();
-}
-
 function startGameTimer() {
     let remainingTimeSec = GAME_DURATION_SEC;
     updateGameTimer(remainingTimeSec);
@@ -120,7 +108,7 @@ function startGameTimer() {
             showReplayPopUp("fail...replay ?");
             started = !started;
             console.log('모드 전환!');
-            playSound(alertSound);
+            sound.playalert();
             return;
         }
         updateGameTimer(-- remainingTimeSec);
@@ -136,5 +124,5 @@ function updateGameTimer(time){
 function showReplayPopUp(text) {
     gameFinishBanner.showWithText(text);
     hiddenPlayBtn();
-    stopSound(bgSound);
+    sound.stopBackground();
 }
