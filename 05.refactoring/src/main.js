@@ -37,11 +37,9 @@ const gameField = new Field(CARROT_COUNT, BUG_COUNT);
 gameField.setClickListener(onItemClick);
 
 function onItemClick(item) {
-    console.log("웨않돼 ㅠ");
-    console.log("item : " + item);
     if (!started) {
         return;
-    }
+    } else {
     if (item == 'carrot') {
         console.log("You clicked CARROT !!");
         score ++;
@@ -61,6 +59,7 @@ function onItemClick(item) {
         started = !started;
         console.log('CHANGE MODE !');
     }
+}
 }
 
 function init() {
