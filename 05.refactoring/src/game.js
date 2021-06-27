@@ -60,17 +60,20 @@ class Game {
     }
 
     init() {
+        console.log('play button is clicked !!');
+        this.start();
+    }
+
+    start() {
         this.score = 0;
         this.gameScore.innerHTML = this.carrotCount;
         this.gameField.init();
         this.showTimerAndScore();
         this.showStopBtn();
-        this.finish();
-    }
-
-    start() {
-        console.log('play button is clicked !!');
-        this.init();
+        this.startGameTimer();
+        sound.playBackground();
+        this.hiddenPlayBtn();
+        this.changeGameMode();
     }
 
     stop() {
