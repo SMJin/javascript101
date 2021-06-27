@@ -33,11 +33,8 @@ export default class Game {
         this.gameScore.innerHTML = this.carrotCount;
         this.gameField.init();
         this.showTimerAndScore();
-        this.startGameTimer();
-        this.hiddenPlayBtn();
         this.showStopBtn();
-        sound.playBackground();
-        this.changeGameMode();
+        this.finish();
     }
 
     start() {
@@ -47,12 +44,9 @@ export default class Game {
 
     stop() {
         console.log('stop button is clicked !!');
-        this.stopGameTimer();
+        this.finish();
         this.onGameStop('fail');
-        this.changeGameMode();
-        this.hiddenPlayBtn();
         sound.playalert();
-        sound.stopBackground();
     }
 
     finish() {
