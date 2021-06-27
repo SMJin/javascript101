@@ -1,23 +1,15 @@
 'use strict';
+import Field from "./field.js";
 import PopUp from "./popup.js";
 
-const IMG_SIZE = 50;
-const ITEM_COUNT = 5;
 const GAME_DURATION_SEC = 5;
+const CARROT_COUNT = 5;
+const BUG_COUNT = 5;
 
-const gameField = document.querySelector('.game__field');
-// getBoundingClientRect 를 사용하면 필드의 전체적인 사이즈와 포지션을 알 수 있다.
-let fieldRect = undefined;
-window.onload = function(){
-    fieldRect = gameField.getBoundingClientRect();
-    console.log("fieldRect : width="+fieldRect.width+", height="+fieldRect.height);
-}
 const playBtn = document.querySelector('.play__btn');
 const gameTimer = document.querySelector('.timer');
 const gameScore = document.querySelector('.game__score');
 
-const carrotSound = new Audio('./sound/carrot_pull.mp3');
-const bugSound = new Audio('./sound/bug_pull.mp3');
 const alertSound = new Audio('./sound/alert.wav');
 const bgSound = new Audio('./sound/bg.mp3');
 const winSound = new Audio('./sound/game_win.mp3');
@@ -38,9 +30,44 @@ gameFinishBanner.setClickListener(() => {
     showStopBtn();
     started = !started;
     console.log('모드 전환!');
-    gameScore.innerHTML = ITEM_COUNT;
-    score = 0;
+    gameScore.innerHTML = CARROT_COUNT;
 });
+
+const gameField = new Field(CARROT_COUNT, BUG_COUNT);
+gameField.setClickListener(onItemClick);
+
+function onItemClick(item) {
+    console.log("웨않돼 ㅠ");
+    console.log("item : " + item);
+    if (!started) {
+        return;
+    }
+    if (item == 'carrot') {
+        console.log("You clicked CARROT !!");
+        score ++;
+        gameScore.innerHTML = CARROT_COUNT - score;
+        if (CARROT_COUNT - score == 0) {
+            playSound(winSound);
+            clearInterval(timer);
+            showReplayPopUp("SUCCESS !!");
+            started = !started;
+            console.log('CHANGE MODE !');
+            return;
+        }
+    } else if (item == 'bug') {
+        console.log("You clicked BUG !!");
+        clearInterval(timer);
+        showReplayPopUp("fail...replay ?");
+        started = !started;
+        console.log('CHANGE MODE !');
+    }
+}
+
+function init() {
+    score = 0;
+    gameScore.innerHTML = CARROT_COUNT;
+    gameField.init();
+}
 
 playBtn.addEventListener('click', e => {
     if (!started) {
@@ -75,71 +102,6 @@ function showStopBtn() {
     icon.classList.remove('fa-play');
 }
 
-function init() {
-    gameScore.innerHTML = ITEM_COUNT;
-    gameField.innerHTML = '';
-    
-    let repeat = 0;
-    while (repeat < ITEM_COUNT) {
-        createImg('./img/carrot.png', `${IMG_SIZE}px`, `${IMG_SIZE}px`, 'carrot');
-        createImg('./img/bug.png', `${IMG_SIZE}px`, `${IMG_SIZE}px`, 'bug');
-        repeat ++;
-    }
-}
-
-function createImg(src, width, height, alt) {
-    const x1 = 0;
-    const y1 = 0;
-    const x2 = fieldRect.width - IMG_SIZE;
-    const y2 = fieldRect.height - IMG_SIZE;
-    
-    const img = document.createElement('img');
-    img.setAttribute('src', src);
-    img.setAttribute('alt', alt);
-    img.setAttribute('width', width);
-    img.setAttribute('height', height);
-    img.setAttribute('class', alt);
-
-    img.style.position = 'absolute';
-    const x = randomNumber(x1, x2);
-    const y = randomNumber(y1, y2);
-//    console.log("left : " + x +", top : " + y);
-    img.style.left = `${x}px`;
-    img.style.top = `${y}px`;
-
-    gameField.appendChild(img);
-
-    img.addEventListener('click', e => {
-        if (alt == 'carrot') {
-            console.log("당근 클릭!!");
-            gameField.removeChild(img);
-            score ++;
-            gameScore.innerHTML = ITEM_COUNT - score;
-
-            playSound(carrotSound);
-
-            if (ITEM_COUNT - score == 0) {
-                playSound(winSound);
-                clearInterval(timer);
-                showReplayPopUp("Successs !!");
-                started = !started;
-                console.log('모드 전환!');
-                return;
-            }
-        } else {
-            console.log("벌레 클릭!!");
-            clearInterval(timer);
-            showReplayPopUp("fail...replay ?");
-            started = !started;
-            console.log('모드 전환!');
-
-            playSound(bugSound);
-
-            return;
-        }
-    });
-}
-
 function playSound(sound) {
     sound.currentTime = 0;
     sound.play();
@@ -147,10 +109,6 @@ function playSound(sound) {
 
 function stopSound(sound) {
     sound.pause();
-}
-
-function randomNumber(min, max) {
-    return Math.random() * (max - min) + min;
 }
 
 function startGameTimer() {
