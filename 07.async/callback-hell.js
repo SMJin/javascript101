@@ -8,7 +8,6 @@ class UserStorage {
                 (id === 'you' && password === 'right')
             ) {
                 onSuccess(id);
-                console.log(id.name);
             } else {
                 onError(new Error('not found'));
             }
