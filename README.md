@@ -27,3 +27,9 @@ html 요소 이벤트 처리하기
 
 ## 06.json
 json 기본적인 실습
+
+## 07. async
+javascript의 비동기적 처리 과정 이해하기
+> callback
+> promise
+> async/await
